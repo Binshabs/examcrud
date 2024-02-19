@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Name
-from .forms import TodoForm
+
 
 # Create your views here.
 
@@ -8,44 +8,53 @@ from .forms import TodoForm
 def Home(req):
     # return render(req,'index.html')
     names=Name.objects.all()
-    print(req.method)
+   
     if req.method=="POST":
         
         name=req.POST.get('name','')
+        mark=req.POST.get('mark','')
         
         date=req.POST.get('date','')
-        img=req.FILES['image']
+        image=req.FILES['image']
         
-        todo=Name(name=name,date=date,image=img)
+        todo=Name(name=name,mark=mark,date=date,image=image)
         todo.save()
-    return render(req,'index.html',{"name":names})
+    return render(req,'index.html',{"names":names})
 
 
 def Update(req,id):
     names=Name.objects.get(id=id)
-    # if req.method=="POST":
-    #    task=req.POST.get('task','')
-    #    priority=req.POST.get('priority','')
-    #    Task.objects.filter(id=id).update(task=task,priority=priority)
-    #    return redirect("home")
-    
-    
-    
-    f=TodoForm(req.POST or None,instance=names)
-    if f.is_valid():
-        f.save()
+    if req.method=="POST":
+        name=req.POST.get('name','')
+        mark=req.POST.get('mark','')
+        date=req.POST.get('date','')
+        Name.objects.filter(id=id).update(name=name,mark=mark,date=date)
         return redirect("home")
-        
-    return render(req,'formUpdate.html',{"name":names,'f':f})
+    return render(req,'update.html',{"names":names})
+    
+    
+  
 
     
 
 def Delete(req,id):
-    names=Name.objects.get(id=id)
+    names=Name.objects.filter(id=id)
+    
+    names.delete()
+    return redirect("home")
+
+
+
+def View(req,id):
+    names=Name.objects.all()
     if req.method=="POST":
-       name=req.POST.get('name','')
-       priority=req.POST.get('prority','')
-       Name.objects.filter(id=id).delete()
-       
-       return redirect("home")
-    return render(req,'delete.html',{"name":names})
+        
+        name=req.POST.get('name','')
+        mark=req.POST.get('mark','')
+        date=req.POST.get('date','')
+        image=req.FILES['image']        
+        todo=Name(name=name,mark=mark,date=date,image=image)
+        todo.save()
+
+
+    return render(req,'view.html',{"name ":names})

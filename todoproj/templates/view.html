@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mt-2 mb-2 border w-50" style="margin-left: 450px;">
+    <div class="coll col-lg-4 col-md-6 col-sm-12 hdn" style="margin-left: 0px;">
+            {% for name in names %}
+            <div class="task d-flex justify-content-between flex-wrap border p-3 mt-2 mb-2">
+                <div class="child"><img src="{{name.image.url}}" width="250px" height="150px" alt=""></div>
+            </div>
+            </div>
+            <div class="col-lg-8 bg-secondary mt-2 mb-2">
+            <div class="child">name: {{name.name}}</div>
+            <div class="child">mark: {{name.mark}}</div>
+            <div class="child">date: {{name.date}}</div>
+            </div>
+        {% empty %}
+        <h1>Task Empty</h1>
+        {% endfor %}
+</div>
+{% endblock %}

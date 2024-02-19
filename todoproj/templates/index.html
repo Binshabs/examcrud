@@ -1,32 +1,48 @@
 {% extends 'base.html' %}
-{% block content %}
-<div class="aaa container-fluid ">
-    <div class=" row">
-      <div class="col-lg-2 col-md-2 col-sm-3 p-3 d-flex justify-content-center">
-        <form action="" method="post" class="form w-50" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="aa ">
-            <input type="text" name="NAME" placeholder="NAME" class="form-control " >
-          </div>
-          <div class="ab">
-            <input type="date" name="DATE" placeholder="DATE" class="form-control" >
-          </div>
-          <div class="ac ">
-            <input type="FILE" name="IMAGE" placeholder="IMAGE" class="form-control" >
-          </div>
-          <div class="ad">
-            <button class="btn btn-primary pt-2">add</button>
-          </div>
-          {% for name in name %}
-          <div class="names d-flex justify-content-between flex-wrap">
-            <div class="child p-5"><img src="{{name.image.url}}"  alt="no image"></div>
-            <div class="child p-5">{{name.name}} </div>
-            <div class="child p-5"> {{name.date}}</div> 
-            </div>
-            {% endfor %}
-          
+    {% block content %}
+<div class="container">
+    <div class="rw row">
+        <div class="col1 col-lg-12 col-md-6 col-sm-12 p-3 d-flex justisfy-content-center">
+            <form action="" method="post" class="form w-50" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="my-3">
+                    <input type="text" name="name" placeholder="name" class="form-control">
+                </div>
+                <div>
+                    <input type="number" name="mark" placeholder="mark" class="form-control">
+                </div>
+                <div class="my-3">
+                    <input type="date" name="date" placeholder="Date" class="form-control">
+                </div>
+                <div class="my-3">
+                    <input type="file" name="image" placeholder="Image" class="form-control">
+                </div>
+                <div class="my-3 text-center">
+                    <button class="btn btn-primary">Add</button>
+                </div>
+            </form>
         </div>
     </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 p-3 hdn">
+      <h1>Task to be completed</h1>
+      <div class="container bttn">
+          {% for student in students %}
+          <div class="tasks d-flex justify-content-between flex-wrap border p-3 m-2 ">
+              <div class="child"><img src="{{student.image.url}}" width="250px" height="150px" alt=""></div>
+              <div class="child">{{student.name}}</div>
+              <div class="child ms-2">{{student.mark}}</div>
+              <div class="child">
+                  <a href="{% url 'update' student.id %}" class="btn btn-primary mt-5">Update</a>
+                  <a href="{% url 'delete' student.id %}" class="btn btn-success mt-5">Delete</a>
+                  <a href="{% url 'view' student.id %}" class="btn btn-success mt-5">View</a>
+
+              </div>
+          </div>
+          {% empty %}
+          <h1>Task Empty</h1>
+          {% endfor %}
+      </div>
+  </div>
 </div>
 
-{% endblock %} 
+{% endblock %}

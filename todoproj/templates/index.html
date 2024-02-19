@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="aaa container-fluid ">
+    <div class=" row">
+      <div class="col-lg-2 col-md-2 col-sm-3 p-3 d-flex justify-content-center">
+        <form action="" method="post" class="form w-50" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="aa ">
+            <input type="text" name="NAME" placeholder="NAME" class="form-control " >
+          </div>
+          <div class="ab">
+            <input type="date" name="DATE" placeholder="DATE" class="form-control" >
+          </div>
+          <div class="ac ">
+            <input type="FILE" name="IMAGE" placeholder="IMAGE" class="form-control" >
+          </div>
+          <div class="ad">
+            <button class="btn btn-primary pt-2">add</button>
+          </div>
+          {% for name in name %}
+          <div class="names d-flex justify-content-between flex-wrap">
+            <div class="child p-5"><img src="{{name.image.url}}"  alt="no image"></div>
+            <div class="child p-5">{{name.name}} </div>
+            <div class="child p-5"> {{name.date}}</div> 
+            </div>
+            {% endfor %}
+          
+        </div>
+    </div>
+</div>
+
+{% endblock %} 

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+    {% block content %}
+<div class="container ">
+    <!-- <h1 class="text-center">Delete</h1>
+    -->
+  <div class="row ">
+    <div class="d-flex justify-content-center">
+      <form action="" method="post" class="form w-50">
+        {% csrf_token %}
+        <div class="my-3 text-center ">
+          <h1>DO YOU WANT TO DELETE</h1>
+        </div>
+        
+        <div class="my-3 text-center mx-0">
+          <button class="btn btn-warning p-2 m-3">Delete</button>
+        </div>
+      </form>
+    
+    
+    </div>
+  </div>
+</div>
+{% endblock %} 
